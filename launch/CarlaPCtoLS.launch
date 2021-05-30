@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+
+<launch>
+    <!-- run pointcloud_to_laserscan node -->
+    <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+
+        <remap from="cloud_in" to="/carla/ego_vehicle/lidar/lidar1/point_cloud"/>
+        <remap from="scan" to="camera/scan"/>
+        <rosparam>
+            target_frame: ego_vehicle/lidar/lidar1 # Leave disabled to output scan in pointcloud frame
+            transform_tolerance: 0.01
+            min_height: 0.0
+            max_height: 255
+            angle_min: -3.1400001049 # -M_PI/2
+            angle_max: 3.1400001049 # M_PI/2
+            angle_increment: 0.0087 # M_PI/360.0
+            scan_time: 0.3333
+            range_min: 0.0
+            range_max: 255
+            use_inf: false
+            inf_epsilon: 1.0
+
+            # Concurrency level, affects number of pointclouds queued for processing and number of threads used
+            # 0 : Detect number of cores
+            # 1 : Single threaded
+            # 2->inf : Parallelism level
+            concurrency_level: 1
+        </rosparam>
+
+    </node>
+
+</launch>
